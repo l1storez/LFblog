@@ -1,6 +1,5 @@
 """Views for blog."""
 from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone  # pylint: disable=unused-import
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
@@ -54,12 +53,15 @@ def post_edit(request, pk):  # pylint: disable=invalid-name
 @login_required
 def post_draft_list(request):
     """Render draft post on the webpage."""
-    posts = Post.objects.filter(published_date__isnull=True).order_by('created_date')
+    posts = (
+        Post.objects.filter
+        (published_date__isnull=True).order_by('created_date')
+    )
     return render(request, 'blog/post_draft_list.html', {'posts': posts})
 
 
 @login_required
-def post_publish(request, pk):  # pylint: disable=invalid-name
+def post_publish(request, pk):  # pylint: disable=invalid-name unused-argument
     """Render publish post on the webpage."""
     post = get_object_or_404(Post, pk=pk)
     post.publish()
@@ -67,7 +69,7 @@ def post_publish(request, pk):  # pylint: disable=invalid-name
 
 
 @login_required
-def post_remove(request, pk):  # pylint: disable=invalid-name
+def post_remove(request, pk):  # pylint: disable=invalid-name unused-argument
     """Render remove post on the webpage."""
     post = get_object_or_404(Post, pk=pk)
     post.delete()
@@ -75,7 +77,8 @@ def post_remove(request, pk):  # pylint: disable=invalid-name
 
 
 @login_required
-def add_comment_to_post(request, pk):  # pylint: disable=invalid-name
+def add_comment_to_post(request, pk):
+    # pylint: disable=invalid-name unused-argument
     """Render add comment on the webpage."""
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
@@ -91,7 +94,8 @@ def add_comment_to_post(request, pk):  # pylint: disable=invalid-name
 
 
 @login_required
-def comment_approve(request, pk):  # pylint: disable=invalid-name
+def comment_approve(request, pk):
+    # pylint: disable=invalid-name unused-argument
     """Render comment approve on the webpage."""
     comment = get_object_or_404(Comment, pk=pk)
     comment.approve()
@@ -99,7 +103,8 @@ def comment_approve(request, pk):  # pylint: disable=invalid-name
 
 
 @login_required
-def comment_remove(request, pk):  # pylint: disable=invalid-name
+def comment_remove(request, pk):
+    # pylint: disable=invalid-name unused-argument
     """Render comment remove on the webpage."""
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
