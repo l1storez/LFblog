@@ -11,7 +11,7 @@ class PostForm(forms.ModelForm):
         """Docstring."""
 
         model = Post
-        fields = ('title', 'text')
+        fields = ('title', 'text', 'header_image')
 
 
 class CommentForm(forms.ModelForm):

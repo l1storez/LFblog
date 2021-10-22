@@ -12,6 +12,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
     title = models.CharField(max_length=200)
+    header_image = models.ImageField(null=True, blank=True, upload_to='media/')
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
